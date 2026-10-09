@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>دانشنامه سه‌بعدی سنگ‌ها و کانی‌ها — ROHAM ARAM</title>
+<meta name="description" content="دانشنامه سه‌بعدی سنگ‌ها و کانی‌ها — طراحی و توسعه توسط ROHAM ARAM">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#03050c;--bg2:#070b18;
+  --card:rgba(18,26,46,.72);--card2:rgba(10,15,28,.92);
+  --tx:#e8ecf8;--mu:#8a97b8;
+  --ac:#f5a524;--ac2:#00E5FF;--vi:#8B5CF6;
+  --bd:rgba(37,49,79,.8);
+  --glow:0 0 24px rgba(245,165,36,.35);
+  --glow2:0 0 32px rgba(0,229,255,.25);
+}
+:root[data-theme=light]{
+  --bg:#eef1f8;--bg2:#dde3f0;
+  --card:rgba(255,255,255,.88);--card2:rgba(255,255,255,.97);
+  --tx:#0f1424;--mu:#566080;
+  --ac:#d9480f;--ac2:#0077b6;--vi:#6d28d9;
+  --bd:#c9d2e6;
+  --glow:0 0 20px rgba(217,72,15,.25);
+  --glow2:0 0 24px rgba(0,119,182,.2);
+}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  font-family:Vazirmatn,Tahoma,sans-serif;
+  background:radial-gradient(1200px 800px at 80% -10%,rgba(139,92,246,.18),transparent 60%),
+             radial-gradient(900px 700px at -10% 100%,rgba(0,229,255,.14),transparent 60%),
+             var(--bg);
+  color:var(--tx);transition:background .4s,color .3s;
+  overflow-x:hidden;min-height:100vh;
+}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+:root[data-theme=light] #bg{opacity:.75}
+main,header,footer{position:relative;z-index:2}
+
+/* Header */
+header{
+  position:sticky;top:0;display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+  padding:12px 18px;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 92%,transparent),color-mix(in srgb,var(--bg) 65%,transparent));
+  backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);
+  border-bottom:1px solid var(--bd);z-index:10;
+}
+.brand{display:flex;align-items:center;gap:10px}
+.brand .logo{
+  width:38px;height:38px;border-radius:12px;
+  background:conic-gradient(from 210deg,var(--ac),var(--vi),var(--ac2),var(--ac));
+  display:grid;place-items:center;font-size:1.1rem;
+  box-shadow:0 0 20px rgba(0,229,255,.35),inset 0 0 12px rgba(0,0,0,.4);
+  animation:spinLogo 12s linear infinite;
+}
+@keyframes spinLogo{to{transform:rotate(360deg)}}
+.brand h1{font-size:1.05rem;font-weight:900;
+  background:linear-gradient(90deg,var(--ac),var(--ac2));
+  -webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:.02em;}
+.brand small{display:block;font-size:.68rem;color:var(--mu);font-weight:400;margin-top:2px;letter-spacing:.15em;font-family:'Orbitron',sans-serif}
+header .spacer{flex:1}
+input,select,button{
+  font:inherit;color:var(--tx);background:var(--card);
+  border:1px solid var(--bd);border-radius:12px;padding:9px 14px;
+  transition:.2s;outline:none;
+}
+input:focus,select:focus{border-color:var(--ac2);box-shadow:0 0 0 3px rgba(0,229,255,.15)}
+#q{flex:0 1 260px;min-width:140px}
+button{cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+button:hover,.chip.on{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#0b0f18;border-color:transparent;box-shadow:var(--glow)}
+
+/* Hero */
+#hero{height:64vh;min-height:380px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;text-align:center;
+  padding:22px 18px;cursor:grab;touch-action:none;position:relative;overflow:hidden;}
+#hero:active{cursor:grabbing}
+#hero::after{content:'';position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+  width:60%;height:120px;background:radial-gradient(ellipse at center,rgba(0,229,255,.18),transparent 70%);pointer-events:none;}
+#hero h2{font-size:clamp(1.8rem,5.5vw,3.4rem);font-weight:900;
+  text-shadow:0 4px 30px rgba(0,229,255,.35),0 2px 8px #000c;pointer-events:none;letter-spacing:-.01em;
+  background:linear-gradient(90deg,#fff,var(--ac) 40%,var(--ac2) 70%,#fff);background-size:200% auto;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite;}
+@keyframes shine{to{background-position:200% center}}
+#hero p{color:var(--mu);pointer-events:none;margin-top:8px;font-size:.95rem}
+.hero-tip{margin-top:14px;display:inline-flex;gap:8px;align-items:center;padding:6px 14px;border-radius:99px;font-size:.78rem;
+  background:rgba(255,255,255,.06);border:1px solid var(--bd);color:var(--mu);pointer-events:none;backdrop-filter:blur(8px);}
+
+/* Chips */
+.bar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;padding:16px}
+.chip{padding:8px 16px;border-radius:99px;background:var(--card);border:1px solid var(--bd);font-size:.88rem;transition:.25s;}
+.chip:hover{transform:translateY(-2px)}
+
+/* Grid */
+#grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px;padding:10px 18px 60px;max-width:1320px;margin:auto;}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;overflow:hidden;cursor:pointer;
+  opacity:0;animation:in .55s forwards;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .25s;
+  backdrop-filter:blur(12px) saturate(140%);position:relative;}
+.card::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;
+  background:linear-gradient(135deg,transparent,rgba(0,229,255,.4),transparent 60%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;
+  opacity:0;transition:.4s;pointer-events:none;z-index:3;}
+.card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 20px 40px #0009,var(--glow2);border-color:transparent}
+.card:hover::before{opacity:1}
+@keyframes in{from{opacity:0;transform:translateY(30px) scale(.94)}to{opacity:1;transform:none}}
+.ph{height:160px;position:relative;overflow:hidden;
+  background:radial-gradient(circle at 30% 30%,rgba(0,229,255,.25),transparent 55%),
+             radial-gradient(circle at 70% 70%,rgba(139,92,246,.25),transparent 55%),
+             linear-gradient(135deg,#2a3558,#10162a);
+  display:flex;align-items:center;justify-content:center;font-size:3rem;}
+.ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s;position:relative;z-index:1}
+.card:hover .ph img{transform:scale(1.08)}
+.ph .emoji{filter:drop-shadow(0 4px 12px #000a);z-index:1;position:relative}
+.ph::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(0,0,0,.55));pointer-events:none;z-index:2;}
+.ph.has-img::after{opacity:.6}
+.cb{padding:14px}
+.cb h3{font-size:1.05rem;font-weight:700;margin-bottom:2px}
+.cb small{color:var(--mu);direction:ltr;display:block;font-family:'Orbitron',sans-serif;font-size:.72rem;letter-spacing:.06em}
+.tag{display:inline-block;margin-top:10px;padding:3px 12px;border-radius:20px;font-size:.75rem;
+  background:linear-gradient(135deg,var(--ac),var(--vi));color:#0b0f18;font-weight:700;}
+
+/* Modal */
+#modal{position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  display:none;align-items:center;justify-content:center;z-index:50;padding:14px;}
+#modal.on{display:flex;animation:fadeIn .3s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.box{background:var(--card2);border:1px solid var(--ac);border-radius:22px;max-width:820px;width:100%;max-height:92vh;overflow:auto;
+  animation:zoomIn .4s cubic-bezier(.2,.7,.2,1);box-shadow:0 30px 80px #000b,0 0 40px rgba(245,165,36,.25);position:relative;}
+@keyframes zoomIn{from{opacity:0;transform:scale(.9) translateY(20px)}to{opacity:1;transform:none}}
+.box .ph{height:340px;font-size:5rem}
+.box .ph img{object-fit:cover}
+.det{padding:22px;display:grid;gap:6px}
+.det h2{font-size:1.5rem;margin-bottom:8px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.det h2 small{color:var(--mu);direction:ltr;font-family:'Orbitron',sans-serif;font-size:.85rem;letter-spacing:.1em}
+.det div{padding:10px 0;border-bottom:1px dashed var(--bd);font-size:.95rem;line-height:1.9}
+.det div:last-child{border-bottom:0}
+.det b{color:var(--ac);font-weight:700}
+#x{position:absolute;top:12px;left:12px;z-index:5;width:40px;height:40px;border-radius:50%;
+  background:rgba(0,0,0,.6);border:1px solid var(--bd);color:#fff;font-size:1.1rem;display:grid;place-items:center;padding:0;}
+#x:hover{background:var(--ac);color:#0b0f18;transform:rotate(90deg)}
+
+/* Empty */
+#empty{text-align:center;color:var(--mu);padding:60px 20px;display:none;font-size:1.1rem}
+
+/* Footer */
+footer{text-align:center;padding:34px 18px 40px;border-top:1px solid var(--bd);color:var(--mu);font-size:.85rem;
+  background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--bg) 92%,transparent));}
+footer .sig{font-family:'Orbitron',sans-serif;font-weight:700;letter-spacing:.25em;
+  background:linear-gradient(90deg,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text;color:transparent;
+  font-size:1rem;margin-bottom:8px;}
+footer .role{font-size:.72rem;letter-spacing:.2em;color:var(--mu);margin-top:4px}
+
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--ac),var(--vi));border-radius:99px;border:2px solid var(--bg)}
+
+@media(max-width:700px){
+  header{padding:10px 12px;gap:8px}
+  .brand h1{font-size:.92rem}
+  .brand small{display:none}
+  #q{flex:1 1 100%;order:3}
+  #grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;padding:8px 12px 40px}
+  .ph{height:130px;font-size:2.4rem}
+  .box .ph{height:240px}
+  .det h2{font-size:1.2rem}
+  #hero{height:52vh;min-height:300px}
+}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+
+<header>
+  <div class="brand">
+    <div class="logo">💎</div>
+    <div>
+      <h1>دانشنامه سنگ‌ها و کانی‌ها</h1>
+      <small>ROHAM ARAM · DIGITAL UNIVERSE</small>
+    </div>
+  </div>
+  <div class="spacer"></div>
+  <input id="q" type="search" placeholder="🔍 جستجوی سنگ یا کانی...">
+  <select id="rs">
+    <option value="0">همه مقاومت‌ها</option>
+    <option value="1">ضعیف</option>
+    <option value="2">متوسط</option>
+    <option value="3">قوی</option>
+  </select>
+  <button id="th" title="تغییر تم">🌓</button>
+</header>
+
+<main>
+  <section id="hero">
+    <h2>سفری سه‌بعدی به دنیای سنگ‌ها</h2>
+    <p>منظومه‌ای از سنگ‌ها و کانی‌ها در فضای بی‌کران</p>
+    <span class="hero-tip">🖱️ برای چرخاندن بکشید · برای زوم اسکرول کنید</span>
+  </section>
+
+  <div class="bar" id="chips"></div>
+  <div id="grid"></div>
+  <div id="empty">موردی یافت نشد 🪨</div>
+</main>
+
+<footer>
+  <div class="sig">ROHAM ARAM</div>
+  <div>Creative Developer · Web Engineer · UI/UX Explorer</div>
+  <div class="role">© <span id="yr"></span> · Built with Three.js</div>
+</footer>
+
+<div id="modal"><div class="box" id="mb"></div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ===================================================================
+   ROHAM ARAM — Rock & Mineral Encyclopedia
+   =================================================================== */
+
+const RAW=`گرانیت|Granite|i|کوارتز + فلدسپات + میکا|سرد شدن آهسته ماگمای اسیدی در اعماق زمین|3|f|6–7|صورتی، خاکستری، سفید|نمای ساختمان، کف‌پوش، سنگ قبر|ایران: الوند همدان، شیرکوه یزد | جهان: برزیل، هند، چین
+بازالت|Basalt|i|پیروکسن + پلاژیوکلاز|سرد شدن سریع گدازه بازی روی سطح زمین|3|c|6|سیاه، خاکستری تیره|راه‌سازی، الیاف بازالتی|ایران: دماوند، سبلان | جهان: هاوایی، ایسلند
+ریولیت|Rhyolite|i|کوارتز + فلدسپات ریزدانه|گدازه اسیدی با سرد شدن سریع|3|c|6|صورتی، خاکستری، زرد|مصالح ساختمانی|ایران: کمربند ارومیه–دختر | جهان: یلواستون
+آندزیت|Andesite|i|پلاژیوکلاز + آمفیبول|گدازه حدواسط در کمان‌های آتشفشانی|3|c|6|خاکستری، سبز، قهوه‌ای|نماسازی، بتن|ایران: تفتان، سهند | جهان: رشته‌کوه آند
+گابرو|Gabbro|i|پلاژیوکلاز + پیروکسن|تبلور آهسته ماگمای بازی در عمق|3|c|6|سیاه، سبز تیره|سنگ نما، کف‌پوش|ایران: بلوچستان، آذربایجان | جهان: نروژ، کانادا
+پوکه معدنی|Pumice|i|شیشه آتشفشانی|گدازه پرگاز که سریع سرد و متخلخل می‌شود|1|f|5–6|سفید، خاکستری، صورتی|بلوک سبک، ساینده، بتن سبک|ایران: دماوند، تفتان | جهان: ایتالیا، ترکیه
+ابسیدین|Obsidian|i|شیشه سیلیسی|سرد شدن ناگهانی گدازه اسیدی|2|c|5–6|سیاه، قهوه‌ای|ابزار برش، زیورآلات|ایران: سبلان، دماوند | جهان: ترکیه، مکزیک
+دیوریت|Diorite|i|پلاژیوکلاز + هورنبلند|تبلور آهسته ماگمای حدواسط|3|f|6|خاکستری با لکه‌های سیاه|نما، مجسمه‌سازی|ایران: کمربند ارومیه–دختر | جهان: اسکاتلند
+پریدوتیت|Peridotite|i|الیوین + پیروکسن|سنگ اصلی گوشته بالایی و افیولیت‌ها|1|c|6–7|سبز زیتونی|منبع کروم و نیکل|ایران: سبزوار، نیریز | جهان: عمان، نیوکالدونیا
+تراکیت|Trachyte|i|فلدسپات قلیایی|گدازه قلیایی با سیلیس کم|3|c|6|خاکستری، کرم|پوشش ساختمان، سنگ آسیاب|ایران: سبلان | جهان: آلمان، ایتالیا
+ماسه‌سنگ|Sandstone|s|کوارتز + سیمان|تراکم و سیمانی شدن دانه‌های ماسه|2|f|6–7|زرد، قرمز، قهوه‌ای|ساختمان‌سازی، سنگ آسیاب|ایران: البرز، کویر مرکزی | جهان: آمریکا، استرالیا
+سنگ آهک|Limestone|s|CaCO₃|ته‌نشست کربنات کلسیم و پوسته جانداران دریایی|1|c|3|سفید، کرم، خاکستری|سیمان، گچ، آهک‌سازی|ایران: رشته‌کوه زاگرس | جهان: فرانسه، آمریکا
+شیل|Shale|s|کانی‌های رسی|فشردگی گل و رس در آب‌های آرام|1|f|3|خاکستری، سیاه|آجر، سنگ مادر نفت|ایران: زاگرس، البرز | جهان: کانادا
+کنگلومرا|Conglomerate|s|قلوه‌سنگ + سیمان|سیمانی شدن قلوه‌سنگ‌های گرد رودخانه‌ای|2|f|6|چندرنگ|مصالح ساختمانی، نما|ایران: دامنه‌های البرز | جهان: آلپ
+زغال‌سنگ|Coal|s|کربن (C)|تجمع و تراکم بقایای گیاهی در مرداب‌ها|1|b|2–3|سیاه|سوخت، صنعت فولاد|ایران: کرمان، طبس، البرز | جهان: چین، هند
+ژیپس (سنگ و کانی)|Gypsum|s|CaSO₄·2H₂O|تبخیر آب دریا و دریاچه‌های بسته|1|c|2|سفید، بی‌رنگ، صورتی|گچ، سیمان، دیوارکوب|ایران: قم، سمنان | جهان: مکزیک، اسپانیا
+سنگ نمک|Rock salt|s|NaCl|تبخیر دریاها و دریاچه‌های بسته|1|c|2–2.5|سفید، صورتی، آبی|خوراک، صنایع شیمیایی|ایران: هرمز، گچساران | جهان: لهستان، آمریکا
+چرت|Chert|s|SiO₂|ته‌نشست سیلیس زیستی یا شیمیایی|3|c|7|خاکستری، قهوه‌ای، سیاه|ابزار باستانی، آتش‌زنه|ایران: زاگرس | جهان: انگلستان
+برش|Breccia|s|قطعات زاویه‌دار + سیمان|سیمانی شدن قطعات شکسته نزدیک منشأ|2|f|5–6|چندرنگ|تزئینی، نمای ساختمان|ایران: البرز | جهان: ایتالیا
+دولومیت (سنگ)|Dolostone|s|CaMg(CO₃)₂|جایگزینی منیزیم در سنگ آهک|2|c|3.5–4|سفید، خاکستری، صورتی|نسوز، سیمان|ایران: زاگرس، البرز | جهان: دولومیت‌های ایتالیا
+مرمر|Marble|m|CaCO₃ بلورین|دگرگونی سنگ آهک با گرما و فشار|1|c|3|سفید، صورتی، سبز|مجسمه، نما، کف‌پوش|ایران: محلات، هرسین، ماکو | جهان: کارارا ایتالیا
+کوارتزیت|Quartzite|m|SiO₂|دگرگونی ماسه‌سنگ|3|f|7|سفید، خاکستری، صورتی|راه‌سازی، نما|ایران: البرز، زاگرس | جهان: برزیل
+اسلیت|Slate|m|کانی‌های رسی + میکا|دگرگونی ضعیف شیل|3|f|3–4|خاکستری، سبز، سیاه|پوشش بام، تخته|ایران: همدان، کردستان | جهان: ولز
+شیست|Schist|m|میکا + کوارتز|دگرگونی متوسط با برگوارگی|2|c|3–5|نقره‌ای، سبز، قهوه‌ای|نمای تزئینی|ایران: زون سنندج–سیرجان | جهان: اسکاتلند
+گنیس|Gneiss|m|فلدسپات + کوارتز + بیوتیت|دگرگونی شدید با نوارهای روشن و تیره|3|f|6–7|نواری سفید و سیاه|نما، مصالح|ایران: همدان، سیرجان | جهان: کانادا
+فیلیت|Phyllite|m|میکای ریز + کلریت|دگرگونی بین اسلیت و شیست|2|f|3–4|خاکستری، سبز|تزئینی، نما|ایران: زون سنندج–سیرجان | جهان: آلپ
+آمفیبولیت|Amphibolite|m|آمفیبول + پلاژیوکلاز|دگرگونی سنگ‌های بازی|3|c|5–6|سیاه، سبز تیره|نما، مصالح|ایران: همدان، سیرجان | جهان: اسکاندیناوی
+هورنفلس|Hornfels|m|کوارتز + میکا + فلدسپات|دگرگونی مجاورتی کنار توده نفوذی|3|f|6–7|سیاه، خاکستری تیره|راه‌سازی|ایران: اطراف الوند همدان | جهان: انگلستان
+میگماتیت|Migmatite|m|کوارتز + فلدسپات + میکا|ذوب بخشی سنگ در دمای بالا|3|f|6|نواری روشن و تیره|تزئینی|ایران: همدان | جهان: فنلاند
+سرپانتینیت|Serpentinite|m|Mg₃Si₂O₅(OH)₄|دگرگونی پریدوتیت در حضور آب|1|c|3–5|سبز|تزئینی، نسوز|ایران: سبزوار، نیریز | جهان: ایتالیا
+کوارتز|Quartz|k|SiO₂|تبلور از ماگما و محلول‌های گرمابی|3|f|7|بی‌رنگ، سفید، صورتی|شیشه، الکترونیک، جواهر|ایران: همدان | جهان: برزیل
+فلدسپات|Feldspar|k|(K,Na,Ca)AlSi₃O₈|تبلور ماگما و دگرگونی|2|c|6|سفید، صورتی، سبز|سرامیک، شیشه|ایران: همدان، زنجان | جهان: نروژ، ترکیه
+میکا (مسکوویت و بیوتیت)|Mica|k|KAl₂(AlSi₃O₁₀)(OH)₂|تبلور ماگما و دگرگونی|2|c|2–3|بی‌رنگ، قهوه‌ای، سیاه|عایق الکتریکی، لوازم آرایشی|ایران: همدان | جهان: هند، برزیل
+کلسیت|Calcite|k|CaCO₃|ته‌نشست در دریا، غار و رگه‌ها|1|c|3|بی‌رنگ، سفید، زرد|سیمان، اپتیک|ایران: زاگرس | جهان: ایسلند، مکزیک
+هالیت|Halite|k|NaCl|تبخیر آب شور|1|c|2.5|بی‌رنگ، سفید، آبی|نمک خوراکی، صنعت|ایران: کویر مرکزی، هرمز | جهان: لهستان
+گالن|Galena|k|PbS|محلول‌های گرمابی|2|c|2.5|خاکستری سربی|سرب، باتری|ایران: انگوران زنجان | جهان: استرالیا، چین
+پیریت|Pyrite|k|FeS₂|گرمابی، رسوبی و دگرگونی|1|c|6–6.5|زرد برنجی|اسید سولفوریک|ایران: کرمان، آذربایجان | جهان: اسپانیا
+هماتیت|Hematite|k|Fe₂O₃|رسوبی و گرمابی|3|c|5–6|قرمز، خاکستری|سنگ آهن، رنگدانه|ایران: بافق یزد، چادرملو | جهان: برزیل، استرالیا
+مگنتیت|Magnetite|k|Fe₃O₄|ماگمایی و دگرگونی|2|c|5.5–6.5|سیاه|سنگ آهن، آهنربا|ایران: گل‌گهر، چغارت | جهان: سوئد
+الماس|Diamond|k|C|گوشته زمین در فشار و دمای بسیار بالا|3|f|10|بی‌رنگ، زرد، آبی|جواهر، ابزار برش|جهان: روسیه، بوتسوانا
+طلا|Gold|k|Au|رگه‌های گرمابی و ته‌نشین‌های رودخانه‌ای|3|c|2.5–3|زرد درخشان|جواهر، الکترونیک|ایران: ذره‌شوران تکاب | جهان: آفریقای جنوبی
+نقره|Silver|k|Ag|رگه‌های گرمابی|2|c|2.5–3|سفید نقره‌ای|جواهر، عکاسی|ایران: آذربایجان | جهان: مکزیک، پرو
+مس|Copper|k|Cu|گرمابی و پورفیری|2|c|2.5–3|قرمز مسی|سیم برق، آلیاژ|ایران: سرچشمه، سونگون | جهان: شیلی
+گرافیت|Graphite|k|C|دگرگونی مواد آلی|3|c|1–2|خاکستری تا سیاه|مداد، باتری|ایران: کرمان | جهان: چین
+تالک|Talc|k|Mg₃Si₄O₁₀(OH)₂|دگرگونی سنگ‌های منیزیم‌دار|2|c|1|سفید، سبز|پودر، رنگ، کاغذ|ایران: کرمان، فارس | جهان: چین
+باریت|Barite|k|BaSO₄|رگه‌های گرمابی|2|c|3–3.5|سفید، زرد|گل حفاری|ایران: زنجان، کرمان | جهان: چین
+فلوئوریت|Fluorite|k|CaF₂|رگه‌های گرمابی|2|c|4|بنفش، سبز، آبی|ذوب فلزات، اپتیک|ایران: خراسان | جهان: چین، مکزیک
+آپاتیت|Apatite|k|Ca₅(PO₄)₃(F,Cl,OH)|ماگمایی و رسوبی|2|c|5|سبز، آبی|کود فسفاته|ایران: بافق یزد | جهان: مراکش
+زیرکن|Zircon|k|ZrSiO₄|تبلور ماگمایی|3|f|7.5|قهوه‌ای، بی‌رنگ|سن‌سنجی، جواهر|ایران: همدان | جهان: استرالیا
+توپاز|Topaz|k|Al₂SiO₄(F,OH)₂|پگماتیت و حفره‌های گرانیتی|3|f|8|زرد، آبی، بی‌رنگ|جواهر|جهان: برزیل، روسیه
+یاقوت|Ruby|k|Al₂O₃ (با کروم)|دگرگونی سنگ‌های آهکی|3|f|9|قرمز|جواهر|جهان: میانمار، تایلند
+زمرد|Emerald|k|Be₃Al₂Si₆O₁₈|محلول‌های گرمابی|2|f|7.5–8|سبز|جواهر|جهان: کلمبیا، زامبیا
+آمیتیست|Amethyst|k|SiO₂ (با آهن)|حفره‌های ژئود در بازالت|3|f|7|بنفش|جواهر|جهان: برزیل، اروگوئه`;
+
+const T={i:['آذرین','🌋'],s:['رسوبی','🏜️'],m:['دگرگونی','⛰️'],k:['کانی','💎']};
+const RS={1:'ضعیف',2:'متوسط',3:'قوی'};
+const WE={f:'فیزیکی',c:'شیمیایی',b:'زیستی'};
+
+/* ===================================================================
+   تصاویر
+   =================================================================== */
+
+/* ۱. URL مستقیم عکس‌های آپلود شده شما (اولویت اول) */
+const IMG_URL = {
+  'گرانیت':   'https://uploadkon.ir/uploads/5f1909_26images.jpg',
+  'کنگلومرا': 'https://uploadkon.ir/uploads/476409_26images-1-.jpg',
+  'میکا (مسکوویت و بیوتیت)': 'https://uploadkon.ir/uploads/e41e09_26images-2-.jpg',
+};
+
+/* ۲. اسم فایل در Wikimedia Commons (اولویت دوم - Fallback) */
+const IMG_FILE = {
+  'بازالت':'Basalt_2.jpg',
+  'ریولیت':'Rhyolite.jpg',
+  'آندزیت':'Andesite.jpg',
+  'گابرو':'Gabbro.jpg',
+  'پوکه معدنی':'Pumice_stone.jpg',
+  'ابسیدین':'Obsidian_ball.jpg',
+  'دیوریت':'Diorite.jpg',
+  'پریدوتیت':'Peridotite.jpg',
+  'تراکیت':'Trachyte.jpg',
+  'ماسه‌سنگ':'Sandstone_formation%2C_Uluru%2C_Australia.jpg',
+  'سنگ آهک':'Limestone.jpg',
+  'شیل':'Shale.jpg',
+  'زغال‌سنگ':'Coal.jpg',
+  'ژیپس (سنگ و کانی)':'Gypsum.jpg',
+  'سنگ نمک':'Halite_Hopper_Crystal.jpg',
+  'چرت':'Chert.jpg',
+  'برش':'Breccia.jpg',
+  'دولومیت (سنگ)':'Dolomite_Mountains.jpg',
+  'مرمر':'Marble_italy.jpg',
+  'کوارتزیت':'Quartzite.jpg',
+  'اسلیت':'Slate.jpg',
+  'شیست':'Schist.jpg',
+  'گنیس':'Gneiss.jpg',
+  'فیلیت':'Phyllite.jpg',
+  'آمفیبولیت':'Amphibolite.jpg',
+  'هورنفلس':'Hornfels.jpg',
+  'میگماتیت':'Migmatite.jpg',
+  'سرپانتینیت':'Serpentinite.jpg',
+  'کوارتز':'Quartz_crystal.jpg',
+  'فلدسپات':'Feldspar.jpg',
+  'کلسیت':'Calcite.jpg',
+  'هالیت':'Halite.jpg',
+  'گالن':'Galena.jpg',
+  'پیریت':'Pyrite.jpg',
+  'هماتیت':'Hematite.jpg',
+  'مگنتیت':'Magnetite.jpg',
+  'الماس':'Brillanten.jpg',
+  'طلا':'Gold_nuggets.jpg',
+  'نقره':'Silver.jpg',
+  'مس':'Copper.jpg',
+  'گرافیت':'Graphite.jpg',
+  'تالک':'Talc.jpg',
+  'باریت':'Barite.jpg',
+  'فلوئوریت':'Fluorite.jpg',
+  'آپاتیت':'Apatite.jpg',
+  'زیرکن':'Zircon.jpg',
+  'توپاز':'Topaz.jpg',
+  'یاقوت':'Ruby.jpg',
+  'زمرد':'Emerald.jpg',
+  'آمیتیست':'Amethyst.jpg'
+};
+
+/* ساخت لیست URL به ترتیب اولویت */
+function getImageCandidates(faName){
+  const list = [];
+  // اولویت ۱: URL مستقیم خودت
+  if(IMG_URL[faName]) list.push(IMG_URL[faName]);
+  // اولویت ۲: Wikimedia Special:FilePath
+  if(IMG_FILE[faName]){
+    list.push('https://commons.wikimedia.org/wiki/Special:FilePath/' + IMG_FILE[faName] + '?width=800');
+  }
+  return list;
+}
+
+/* ===== بارگذاری عکس با امتحان کردن همه URLها به ترتیب ===== */
+const imgCache = {};
+
+function loadImg(d, el){
+  // اگه قبلاً موفق شده بود
+  if(imgCache[d.fa] && imgCache[d.fa] !== 'fail'){
+    el.innerHTML = '';
+    el.appendChild(imgCache[d.fa].cloneNode(true));
+    el.classList.add('has-img');
+    return;
+  }
+  // اگه قبلاً کاملاً fail شده بود، ایموجی بمونه
+  if(imgCache[d.fa] === 'fail') return;
+
+  const urls = getImageCandidates(d.fa);
+  if(urls.length === 0) return; // ایموجی بمونه
+
+  let idx = 0;
+
+  function tryNext(){
+    if(idx >= urls.length){
+      // همه URLها fail شدن → ایموجی می‌مونه
+      imgCache[d.fa] = 'fail';
+      console.warn('❌ همه عکس‌ها fail شدن:', d.fa, urls);
+      return;
+    }
+    const url = urls[idx++];
+    const im = new Image();
+    im.alt = d.fa;
+    im.loading = 'lazy';
+    im.referrerPolicy = 'no-referrer';
+    // ⚠️ crossOrigin رو ست نمی‌کنیم تا uploadkon.ir بلاک نکنه
+    im.onload = () => {
+      imgCache[d.fa] = im;
+      if(el.isConnected){
+        el.innerHTML = '';
+        el.appendChild(im);
+        el.classList.add('has-img');
+      }
+    };
+    im.onerror = () => {
+      console.warn('⚠️ عکس لود نشد، امتحان بعدی:', url);
+      tryNext();
+    };
+    im.src = url;
+  }
+  tryNext();
+}
+
+/* ===================================================================
+   UI
+   =================================================================== */
+let ft='all';
+const $=s=>document.querySelector(s);
+const g=$('#grid');
+
+$('#chips').innerHTML=[['all','همه','✨'],...Object.entries(T).map(([k,v])=>[k,v[0],v[1]])]
+  .map(a=>`<button class="chip${a[0]=='all'?' on':''}" data-k="${a[0]}">${a[2]} ${a[1]}</button>`).join('');
+
+$('#chips').onclick=e=>{
+  const b=e.target.closest('.chip');if(!b)return;
+  ft=b.dataset.k;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c==b));
+  render();
+};
+$('#q').oninput=()=>render();
+$('#rs').onchange=()=>render();
+
+/* تم */
+const savedTheme=localStorage.getItem('ra-theme');
+if(savedTheme==='light'){document.documentElement.dataset.theme='light'}
+$('#th').onclick=()=>{
+  const r=document.documentElement;
+  const next=r.dataset.theme==='light'?'dark':'light';
+  r.dataset.theme=next;
+  localStorage.setItem('ra-theme',next);
+  if(window.__starMat) window.__starMat.color.set(next==='light'?0x334:0xffffff);
+};
+
+/* پردازش دیتا */
+const D=RAW.split('\n').map(l=>{
+  const p=l.split('|');
+  return {
+    fa:p[0],en:p[1],t:p[2],f:p[3],h:p[4],r:+p[5],w:p[6],m:p[7],c:p[8],u:p[9],
+    p:p.slice(10).join(' | ')
+  };
+});
+
+/* رندر */
+let renderToken=0;
+function render(){
+  const token=++renderToken;
+  const q=$('#q').value.trim().toLowerCase();
+  const r=+$('#rs').value;
+  const L=D.filter(d=>
+    (ft=='all'||d.t==ft)&&
+    (!r||d.r==r)&&
+    (!q||(d.fa+d.en).toLowerCase().includes(q))
+  );
+  $('#empty').style.display=L.length?'none':'block';
+  g.innerHTML='';
+  const frag=document.createDocumentFragment();
+  L.forEach((d,i)=>{
+    const c=document.createElement('div');
+    c.className='card';
+    c.style.animationDelay=Math.min(i*35,700)+'ms';
+    c.innerHTML=`
+      <div class="ph"><span class="emoji">${T[d.t][1]}</span></div>
+      <div class="cb">
+        <h3>${d.fa}</h3>
+        <small>${d.en}</small>
+        <span class="tag">${T[d.t][0]}</span>
+      </div>`;
+    c.onclick=()=>openDetail(d);
+    frag.appendChild(c);
+    if(token===renderToken) loadImg(d,c.firstChild);
+  });
+  g.appendChild(frag);
+}
+
+/* مودال */
+function openDetail(d){
+  const m=$('#mb');
+  m.innerHTML=`
+    <button id="x" aria-label="بستن">✖</button>
+    <div class="ph"><span class="emoji">${T[d.t][1]}</span></div>
+    <div class="det">
+      <h2>${d.fa} <small>${d.en}</small></h2>
+      <div><b>نوع:</b> ${T[d.t][0]}</div>
+      <div><b>ترکیب / فرمول:</b> <span dir="ltr">${d.f}</span></div>
+      <div><b>نحوه تشکیل:</b> ${d.h}</div>
+      <div><b>مقاومت در برابر هوازدگی:</b> ${RS[d.r]}</div>
+      <div><b>هوازدگی غالب:</b> ${WE[d.w]}</div>
+      <div><b>سختی موس:</b> ${d.m}</div>
+      <div><b>رنگ‌ها:</b> ${d.c}</div>
+      <div><b>کاربردها:</b> ${d.u}</div>
+      <div><b>محل‌های یافت شدن:</b> ${d.p}</div>
+    </div>`;
+  loadImg(d,m.querySelector('.ph'));
+  $('#modal').classList.add('on');
+  $('#x').onclick=()=>$('#modal').classList.remove('on');
+}
+$('#modal').onclick=e=>{if(e.target.id=='modal')e.target.classList.remove('on')};
+addEventListener('keydown',e=>e.key==='Escape'&&$('#modal').classList.remove('on'));
+
+render();
+$('#yr').textContent=new Date().getFullYear();
+
+/* ===================================================================
+   منظومه شمسی سه‌بعدی
+   =================================================================== */
+const cv=$('#bg');
+const R=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true});
+R.setPixelRatio(Math.min(devicePixelRatio,2));
+R.setClearColor(0x000000,0);
+
+const S=new THREE.Scene();
+S.fog=new THREE.FogExp2(0x000000,0.008);
+const C=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,0.1,2000);
+C.position.set(0,10,42);
+
+S.add(new THREE.AmbientLight(0x223355,0.9));
+S.add(new THREE.PointLight(0xffaa55,3,200,1.5));
+const fill=new THREE.DirectionalLight(0x88aaff,0.4);
+fill.position.set(-20,10,20);
+S.add(fill);
+
+/* ستاره‌ها */
+const starCount=2600;
+const starGeo=new THREE.BufferGeometry();
+const starPos=new Float32Array(starCount*3);
+const starCol=new Float32Array(starCount*3);
+for(let i=0;i<starCount;i++){
+  const r=180+Math.random()*400;
+  const th=Math.random()*Math.PI*2;
+  const ph=Math.acos(2*Math.random()-1);
+  starPos[i*3]=r*Math.sin(ph)*Math.cos(th);
+  starPos[i*3+1]=r*Math.sin(ph)*Math.sin(th);
+  starPos[i*3+2]=r*Math.cos(ph);
+  const t=Math.random();
+  starCol[i*3]=0.7+t*0.3;
+  starCol[i*3+1]=0.75+t*0.25;
+  starCol[i*3+2]=0.9+t*0.1;
+}
+starGeo.setAttribute('position',new THREE.BufferAttribute(starPos,3));
+starGeo.setAttribute('color',new THREE.BufferAttribute(starCol,3));
+const starMat=new THREE.PointsMaterial({size:1.1,vertexColors:true,transparent:true,opacity:0.9,sizeAttenuation:true});
+const stars=new THREE.Points(starGeo,starMat);
+S.add(stars);
+window.__starMat=starMat;
+
+/* خورشید */
+const sunGroup=new THREE.Group();
+S.add(sunGroup);
+const sun=new THREE.Mesh(new THREE.SphereGeometry(2.6,48,48),new THREE.MeshBasicMaterial({color:0xffb347}));
+sunGroup.add(sun);
+
+function makeGlow(color,size){
+  const c=document.createElement('canvas');c.width=c.height=256;
+  const ctx=c.getContext('2d');
+  const grd=ctx.createRadialGradient(128,128,0,128,128,128);
+  grd.addColorStop(0,'rgba(255,220,150,1)');
+  grd.addColorStop(0.25,color+'cc');
+  grd.addColorStop(0.6,color+'22');
+  grd.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=grd;ctx.fillRect(0,0,256,256);
+  const tex=new THREE.CanvasTexture(c);
+  const mat=new THREE.SpriteMaterial({map:tex,blending:THREE.AdditiveBlending,transparent:true,depthWrite:false});
+  const spr=new THREE.Sprite(mat);
+  spr.scale.set(size,size,1);
+  return spr;
+}
+sunGroup.add(makeGlow('#ffcc66',14));
+
+/* سیارات */
+const planetData=[
+  {name:'Mercury',r:0.35,dist:5.2,color:0x9c8f7a,speed:1.6,tilt:0.03},
+  {name:'Venus',  r:0.55,dist:7.2,color:0xd9b67a,speed:1.2,tilt:0.05},
+  {name:'Earth',  r:0.62,dist:9.4,color:0x3a7bd5,speed:1.0,tilt:0.08,atm:0x66aaff},
+  {name:'Mars',   r:0.42,dist:11.6,color:0xc1440e,speed:0.85,tilt:0.04},
+  {name:'Jupiter',r:1.4, dist:15.5,color:0xd9a066,speed:0.5,tilt:0.02,bands:true},
+  {name:'Saturn', r:1.15,dist:19.2,color:0xe0c088,speed:0.4,tilt:0.09,hasRing:true},
+  {name:'Uranus', r:0.85,dist:22.6,color:0x88ccee,speed:0.3,tilt:0.15,hasRing:true,ringTilt:1.4},
+  {name:'Neptune',r:0.85,dist:25.8,color:0x4060dd,speed:0.24,tilt:0.1}
+];
+
+const planets=[];
+const orbitGroup=new THREE.Group();
+S.add(orbitGroup);
+
+planetData.forEach(pd=>{
+  const pivot=new THREE.Object3D();
+  orbitGroup.add(pivot);
+
+  const orbitGeo=new THREE.RingGeometry(pd.dist-0.02,pd.dist+0.02,180);
+  const orbitMat=new THREE.MeshBasicMaterial({color:0x88aaff,side:THREE.DoubleSide,transparent:true,opacity:0.16});
+  const orbit=new THREE.Mesh(orbitGeo,orbitMat);
+  orbit.rotation.x=-Math.PI/2;
+  orbitGroup.add(orbit);
+
+  const geo=new THREE.SphereGeometry(pd.r,32,24);
+  const mat=new THREE.MeshStandardMaterial({color:pd.color,roughness:0.75,metalness:0.1});
+  const mesh=new THREE.Mesh(geo,mat);
+  mesh.position.x=pd.dist;
+  mesh.rotation.z=pd.tilt;
+  pivot.add(mesh);
+
+  if(pd.atm){
+    const atmGeo=new THREE.SphereGeometry(pd.r*1.18,24,18);
+    const atmMat=new THREE.MeshBasicMaterial({color:pd.atm,transparent:true,opacity:0.22,side:THREE.BackSide});
+    mesh.add(new THREE.Mesh(atmGeo,atmMat));
+  }
+
+  if(pd.hasRing){
+    const ringGeo=new THREE.RingGeometry(pd.r*1.4,pd.r*2.3,80);
+    const ringMat=new THREE.MeshBasicMaterial({color:0xddc090,side:THREE.DoubleSide,transparent:true,opacity:0.55});
+    const ring=new THREE.Mesh(ringGeo,ringMat);
+    ring.rotation.x=Math.PI/2 - (pd.ringTilt||0);
+    mesh.add(ring);
+  }
+
+  planets.push({pivot,mesh,dist:pd.dist,speed:pd.speed,angle:Math.random()*Math.PI*2});
+});
+
+/* دنباله‌دار */
+const comets=[];
+for(let i=0;i<4;i++){
+  const gc=new THREE.Group();
+  const head=new THREE.Mesh(new THREE.SphereGeometry(0.15,8,8),new THREE.MeshBasicMaterial({color:0xffffff}));
+  gc.add(head);
+  const tail=new THREE.Mesh(new THREE.ConeGeometry(0.3,3,8),
+    new THREE.MeshBasicMaterial({color:0x88ccff,transparent:true,opacity:0.5}));
+  tail.rotation.z=Math.PI/2;tail.position.x=-1.6;gc.add(tail);
+  gc.userData={speed:0.3+Math.random()*0.4,radius:30+Math.random()*40,angle:Math.random()*Math.PI*2,y:(Math.random()-0.5)*20};
+  S.add(gc);comets.push(gc);
+}
+
+/* کنترل دوربین */
+let dragging=false,lx=0,ly=0;
+let camYaw=0,camPitch=0.22,camDist=42;
+let targetYaw=0,targetPitch=0.22,targetDist=42;
+
+const hero=$('#hero');
+hero.addEventListener('pointerdown',e=>{dragging=true;lx=e.clientX;ly=e.clientY;hero.style.cursor='grabbing';});
+addEventListener('pointerup',()=>{dragging=false;hero.style.cursor='grab'});
+addEventListener('pointermove',e=>{
+  if(!dragging)return;
+  targetYaw+=(e.clientX-lx)*0.005;
+  targetPitch=Math.max(-0.6,Math.min(1.2,targetPitch-(e.clientY-ly)*0.004));
+  lx=e.clientX;ly=e.clientY;
+});
+addEventListener('wheel',e=>{targetDist=Math.max(14,Math.min(90,targetDist+e.deltaY*0.04));},{passive:true});
+
+function resize(){R.setSize(innerWidth,innerHeight);C.aspect=innerWidth/innerHeight;C.updateProjectionMatrix();}
+addEventListener('resize',resize);
+resize();
+
+let t0=performance.now();
+function loop(now){
+  const dt=Math.min(0.05,(now-t0)/1000);t0=now;
+
+  camYaw+=(targetYaw-camYaw)*0.08;
+  camPitch+=(targetPitch-camPitch)*0.08;
+  camDist+=(targetDist-camDist)*0.08;
+
+  C.position.set(
+    Math.sin(camYaw)*Math.cos(camPitch)*camDist,
+    Math.sin(camPitch)*camDist+4,
+    Math.cos(camYaw)*Math.cos(camPitch)*camDist
+  );
+  C.lookAt(0,0,0);
+
+  stars.rotation.y+=dt*0.008;
+  sun.scale.setScalar(1+Math.sin(now*0.001)*0.02);
+
+  planets.forEach(p=>{
+    p.angle+=dt*p.speed*0.25;
+    p.pivot.rotation.y=p.angle;
+    p.mesh.rotation.y+=dt*0.6;
+  });
+
+  comets.forEach(c=>{
+    const u=c.userData;
+    u.angle+=dt*u.speed*0.3;
+    c.position.set(Math.cos(u.angle)*u.radius,u.y+Math.sin(u.angle*0.7)*3,Math.sin(u.angle)*u.radius);
+    c.lookAt(0,0,0);c.rotateY(Math.PI);
+  });
+
+  R.render(S,C);
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
